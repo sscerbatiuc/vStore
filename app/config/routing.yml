@@ -1,0 +1,8 @@
+mercedes_v_store:
+    resource: "@MercedesVStoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
