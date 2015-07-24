@@ -1,0 +1,28 @@
+/* 
+    Created on : Jul 24, 2015, 12:30:38 PM
+    Author     : PENTALOG\sscerbatiuc
+*/
+
+#welcomeMessage{
+    font-size: 120%;
+    margin: auto auto;
+    padding-top: 15%;
+    padding-bottom: 5%;
+}
+
+#templateButton{
+    font-size: 125%;
+    text-transform: uppercase;
+}
+/**
+OVERWRITE BOOTSTRAP PROPERTIES FOR A BUTTON
+*/
+.btn-default:link{
+    background: rgba(243,241,240,0.2);
+    transition: 0.3s linear 0s;
+}
+
+.btn-default:hover{
+    background: rgba(243,241,240,1);
+    transition: 0.3s linear 0s;
+}

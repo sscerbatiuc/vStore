@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} - Cars {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/cars.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}  
+    
+    <br/>
+    <div class="headerInformation"><h1>Select a class:</h1></div>
+
+    <div class="classSelector" id="aClass" onclick="selectClass('a');">
+        <h1 class="className">A-Class</h1>			
+    </div>
+    
+    <div class="classSelector" id="bClass" onclick="selectClass('b');">
+        <h1 class="className">B-Class</h1>
+    </div>
+    
+    <div class="classSelector" id="cClass" onclick="selectClass('c');">
+        <h1 class="className">C-Class</h1>
+    </div>
+    
+    <div class="classSelector" id="eClass" onclick="selectClass('e');">
+        <h1 class="className">E-Class</h1>
+    </div>
+    
+    <div class="classSelector" id="sClass" onclick="selectClass('s');">
+        <h1 class="className">S-Class</h1>
+    </div>
+
+{% endblock %}

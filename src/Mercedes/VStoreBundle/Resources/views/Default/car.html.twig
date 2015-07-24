@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - {# INSERT HERE THE CLASS' NAME #} {% endblock %}
+{% block body %}
+    {{ parent() }}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/cars.css') }}"/>
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+    <div id="classPicture" >
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 id="classTitle">The new A-Class</h1>
+                <p id="classPrice">Starting at: 16000&#8364</p>
+                <a id="templateButton" class="btn btn-default customizeButton" href="#">Customize</a>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p><strong>Description</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras enim ligula, suscipit in eros interdum, molestie scelerisque turpis. Sed efficitur arcu non felis pharetra volutpat. Phasellus finibus purus ac quam pulvinar, et accumsan turpis efficitur. Sed faucibus quis lectus et dignissim. Maecenas pharetra, massa eget maximus vulputate, libero ante pulvinar dolor, vitae sagittis velit orci eu magna. Vivamus nec metus convallis, suscipit tellus eu, ullamcorper dolor. Aenean pharetra sodales lorem, ut fermentum tellus. Nulla lectus massa, sagittis eget urna a, tristique porttitor velit. Integer tempus imperdiet nibh ac eleifend. Etiam suscipit malesuada odio a pellentesque. Praesent faucibus rhoncus metus, in interdum urna mollis et. Fusce malesuada dolor non dui laoreet molestie. Praesent eget elementum eros.</p>
+    </div>
+    <div class="row contentLeft">
+        <div class="col-lg-12">
+            <h3 id="defaultSpecHeader">Default Specifications</h3>
+            <p>Air conditioning</p>
+            <p>6 Airbags</p>
+            <p id="prefixAddSpecifications">Give this car a touch of your personality</p>
+            <a id="templateButton" class="btn btn-default customizeSpecButton" href="#">Customize</a></div>
+    </div>
+{% endblock %}

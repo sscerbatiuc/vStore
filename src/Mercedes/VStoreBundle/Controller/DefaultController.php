@@ -10,12 +10,42 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
-     * @Assert\NotBlank()
-     * @Template()
+     * @Route("/", name="homepage")
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return $this->render('MercedesVStoreBundle:Default:index.html.twig');
+    }
+    /**
+     * @Route("/cars",name="selectClass")
+     * @return type
+     */
+    public function carAction(){
+        return $this->render('MercedesVStoreBundle:Default:vehicles.html.twig');
+    }
+    
+    /**
+     * @Route("/car/{className}", name="viewCar")
+     * @return type
+     */
+    public function viewCarAction($className){
+        
+        return $this->render('MercedesVStoreBundle:Default:car.html.twig', array("className" => $className));
+    }
+    
+    /**
+     * @Route("/spec", name="viewSpecifications")
+     * @return type
+     */
+    public function specAction(){
+        return $this->render('MercedesVStoreBundle:Default:spec.html.twig');
+    }
+    
+    /**
+     * @Route("/discount",name="viewDiscountOptions")
+     * @return type
+     */
+    public function discountAction(){
+        return $this->render('MercedesVStoreBundle:Default:discount.html.twig');
     }
 }

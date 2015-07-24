@@ -1,15 +1,46 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Vehicle Store{% endblock %}</title>
+        <title>{% block title %}Mercedes Store{% endblock %}</title>
         {% block stylesheets %}
-                       
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/bootstrap.min.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/style.css') }}"/>
         {% endblock %}
     </head>
     <body>
         {% block body %}
-            Base html twig file
+            <div id="wrapper">
+                <div class="logo">
+                    <div id="logo_img"></div>
+                </div>
+                <div class="menu">
+                    <div id="navigationContainer">
+                        <ul class="nav nav-tabs nav-justified navigationButtons">
+                            <li {#class="active"#}><a href="/">Homepage</a></li>
+                            <li><a href="/cars">Cars</a></li>
+                            <li><a href="/spec">Specifications</a></li>
+                            <li><a href="/discount">Discount</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="contentContainer">
+                    <div id="content">
+                        
+                        {% block content %}
+                            <br/>
+                        {# PAGE CONTENT WILL BE HERE #}
+                        {% endblock %}
+                        
+                    </div>
+                </div>
+                <div class="footer">
+                    <div id="footerContent"></div>
+                </div>
+            </div>
         {% endblock %}
-    {% block javascripts %}{% endblock %}
-</body>
+        {% block javascripts %}
+            <script src="{{ asset('bundles/mercedesvstore/js/jquery-1.11.3.min.js') }}"></script>
+            <script src="{{ asset('bundles/mercedesvstore/js/script.js') }}"></script>
+        {% endblock %}
+    </body>
 </html>

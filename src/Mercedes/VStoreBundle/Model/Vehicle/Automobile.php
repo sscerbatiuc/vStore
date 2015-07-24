@@ -1,6 +1,6 @@
 <?php
 
-namespace Mercedes\VStoreBundle\Model;
+namespace Mercedes\VStoreBundle\Model\Vehicle;
 
 class Automobile {
 
