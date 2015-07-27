@@ -23,7 +23,7 @@ class SpecStorage{
     const lightSensName     = "Light Sensor";
     const rainSensName      = "Rain Sensor";
     const theftAlarmName    = "Anti Theft Alarm";
-    const rimsName          = "Light Rims";
+    const rimsName          = "Lightweight Rims";
     const heatedSeatsName   = "Heated Seats";
     const cruControlName    = "Cruise Control";
     const boardComputerName = "Board Computer";
@@ -79,6 +79,20 @@ class SpecStorage{
     );
     
     /**
+     * Returns the array with the available specifications
+     * @return array
+     */
+    public static function getAvailableOptionalSpecifications(){
+        $availableSpecs = array();
+        foreach (self::$optionalSpecifications as $name => $specification) {
+            if($specification["Price"] > 0){
+                array_push($availableSpecs, $specification);
+            }
+        }
+        return $availableSpecs;
+    }
+
+        /**
      * Returns an array with the specifications common for all the cars
      * @return array
      */

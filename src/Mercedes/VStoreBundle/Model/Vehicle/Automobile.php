@@ -2,6 +2,8 @@
 
 namespace Mercedes\VStoreBundle\Model\Vehicle;
 
+use Mercedes\VStoreBundle\Model\Helper\Helper;
+
 class Automobile {
 
     private $vehicleMake = "Mercedes-Benz";
@@ -36,7 +38,16 @@ class Automobile {
     function getVehiclePrice() {
         return $this->vehiclePrice;
     }
+    
+    function getDefaultSpecs() {
+        return $this->defaultSpecs;
+    }
 
+    function getOptionalSpecs() {
+        return $this->optionalSpecs;
+    }
+
+    
     // SETTERS
     public function setVehicleClass($vehicleClass) {
         $this->vehicleClass = $vehicleClass;
@@ -203,7 +214,7 @@ class Automobile {
      * Therefore, the price will be calculated with the discount value taken into account.
      * @param Reduceri $discountOption
      */
-    public function addDiscountOption(Reduceri $discountOption) {
+    public function addDiscountOption(Discounts $discountOption) {
         $optionClass = get_class($discountOption);
         $isOptionAdded = array_key_exists($optionClass, $this->discountOptions);
         if (!$isOptionAdded) {
@@ -242,7 +253,7 @@ class Automobile {
      * is greater than <i>order2</i>, and 0 if they are
      * equal.
      */
-    public function compareDiscountOptions(Reduceri $option1, Reduceri $option2) {
+    public function compareDiscountOptions(Discounts $option1, Discounts $option2) {
 
         return strcmp($option1->getOrder(), $option2->getOrder());
     }

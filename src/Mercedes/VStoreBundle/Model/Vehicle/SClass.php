@@ -2,6 +2,9 @@
 
 namespace Mercedes\VStoreBundle\Model\Vehicle;
 
+use Mercedes\VStoreBundle\Model\Specification\SpecStorage;
+
+
 class SClass extends Automobile {
 
     const className     = "S-Class";
@@ -15,7 +18,6 @@ class SClass extends Automobile {
         parent::__construct(self::className, self::classPrice);
         $this->equipCar();
     }
-    
     
     public function equipCar() {
         $sClassDefSpecs = SpecStorage::getCommonSpecifications();

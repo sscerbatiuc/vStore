@@ -1,6 +1,8 @@
 <?php
 namespace Mercedes\VStoreBundle\Model\Vehicle;
 
+use Mercedes\VStoreBundle\Model\Specification\SpecStorage;
+
 class AClass extends Automobile {
     
     const className     = "A-Class";

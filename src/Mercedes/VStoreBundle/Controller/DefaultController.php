@@ -3,9 +3,9 @@
 namespace Mercedes\VStoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Validator\Constraints as Assert;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Mercedes\VStoreBundle\Model\Helper\Helper;
+use Mercedes\VStoreBundle\Model\Specification\SpecStorage;
 
 class DefaultController extends Controller
 {
@@ -29,8 +29,10 @@ class DefaultController extends Controller
      * @return type
      */
     public function viewCarAction($className){
-        
-        return $this->render('MercedesVStoreBundle:Default:car.html.twig', array("className" => $className));
+        $vehicle = $this->get('AutoFactory');
+        $vehicle::getInstance();
+        $car = $vehicle->createVehicle($className);
+        return $this->render('MercedesVStoreBundle:Default:car.html.twig', array("vehicle" => $car));
     }
     
     /**
@@ -38,7 +40,8 @@ class DefaultController extends Controller
      * @return type
      */
     public function specAction(){
-        return $this->render('MercedesVStoreBundle:Default:spec.html.twig');
+        $specs = SpecStorage::getAvailableOptionalSpecifications();
+        return $this->render('MercedesVStoreBundle:Default:spec.html.twig', array("specification" => $specs));
     }
     
     /**
@@ -46,6 +49,13 @@ class DefaultController extends Controller
      * @return type
      */
     public function discountAction(){
-        return $this->render('MercedesVStoreBundle:Default:discount.html.twig');
+        $vipDiscount = $this->get('VipDiscount');
+        $christmasDiscount = $this->get('OrdinaryDiscount');
+        $options = array();
+        array_push($options, $christmasDiscount);
+        array_push($options, $vipDiscount);
+        return $this->render('MercedesVStoreBundle:Default:discount.html.twig', array("options" => $options));
     }
 }
+
+

@@ -7,6 +7,10 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    christmasDiscountStartDate: "15.12.2015"
+    christmasDiscountEndDate: "15.01.2016"
+    christmasDiscountValue: "0.15"
+    christmasDiscountDescription: "This is a christmas discount option. -15% for each car"
 
 framework:
     #esi:             ~
@@ -78,3 +82,16 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+#parameters:
+#    christmasDiscountStartDate: "15.12"
+#    christmasDiscountEndDate: "15.12"
+ 
+services:
+    AutoFactory:
+        class:  Mercedes\VStoreBundle\Model\AutomobileFactory
+    VipDiscount:
+        class:  Mercedes\VStoreBundle\Model\Discount\VipDiscount
+    OrdinaryDiscount:
+        class:  Mercedes\VStoreBundle\Model\Discount\OrdinaryDiscount
+        arguments: ['%christmasDiscountStartDate%','%christmasDiscountEndDate%', '%christmasDiscountValue%','%christmasDiscountDescription%']

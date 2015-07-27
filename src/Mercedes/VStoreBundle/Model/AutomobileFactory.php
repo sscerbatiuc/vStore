@@ -2,7 +2,8 @@
 
 namespace Mercedes\VStoreBundle\Model;
 
-use Symfony\Component\ClassLoader\Psr4ClassLoader;
+use Mercedes\VStoreBundle\Model\Vehicle\Automobile;
+use Mercedes\VStoreBundle\Model\Helper\Helper;
 
 class AutomobileFactory {
 
@@ -22,12 +23,10 @@ class AutomobileFactory {
         return $instance;
     }
 
-    protected function __construct() {
-        //Helper::displaySuccessMessage("Automobile Factory Constructor has been called successfully.");
-        //Get the instance of the vehicleStore object where all the vehicles are stored 
-//        $this->vehicleStore = VehicleStore::getInstance();
+    public function __construct() {
+        
     }
-    
+
     //Prevent cloning the instance of the object AutomobileFactory - Singleton pattern    
     private function __clone() {
         
@@ -43,15 +42,37 @@ class AutomobileFactory {
      */
     public function createVehicle($inputVehicleClass) {
         $vehicleClass = ucfirst($inputVehicleClass);
+//        return new Vehicle\AClass();
         $vehicle = $vehicleClass . "Class";
-        if (class_exists($vehicle)) {
-            $newVehicle = new $vehicle($inputVehicleClass);
-            return $newVehicle;
-        } else {
-
-            Helper::displayErrorMessage("The vehicle (" . $vehicle . ") couldn't be created.");
-            return NULL;
+        switch ($vehicle) {
+            case "AClass": {
+                    return new Vehicle\AClass();
+                }
+            case "BClass": {
+                    return new Vehicle\BClass();
+                }
+            case "CClass": {
+                    return new Vehicle\CClass();
+                }
+            case "EClass": {
+                    return new Vehicle\EClass();
+                }
+            case "SClass": {
+                    return new Vehicle\SClass();
+                }
+            default : {
+                    Helper::displayErrorMessage("The vehicle (" . $vehicle . ") couldn't be created.");
+                    return NULL;
+                }
         }
+//        if (class_exists("Mercedes/VStoreBundle/Model/" . $vehicle)) {
+//            $newVehicle = new $vehicle();
+//            return $newVehicle;
+//        } else {
+//
+//            Helper::displayErrorMessage("The vehicle (" . $vehicle . ") couldn't be created.");
+//            return NULL;
+//        }
     }
 
 }

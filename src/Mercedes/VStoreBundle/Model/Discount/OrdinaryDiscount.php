@@ -2,7 +2,9 @@
 
 namespace Mercedes\VStoreBundle\Model\Discount;
 
-class OrdinaryDiscount extends Reduceri {
+use Mercedes\VStoreBundle\Model\Helper\Time;
+
+class OrdinaryDiscount extends Discounts {
 
     private $startDate;
     private $endDate;

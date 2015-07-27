@@ -2,6 +2,8 @@
 
 namespace Mercedes\VStoreBundle\Model\Vehicle;
 
+use Mercedes\VStoreBundle\Model\Specification\SpecStorage;
+
 class BClass extends Automobile {
 
     const className     = "B-Class";

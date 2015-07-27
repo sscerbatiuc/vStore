@@ -2,7 +2,9 @@
 
 namespace Mercedes\VStoreBundle\Model\Discount;
 
-abstract class Reduceri implements OrderingInterface {
+use Mercedes\VStoreBundle\Model\Discount\OrderingInterface;
+
+abstract class Discounts implements OrderingInterface {
     
     const fixedDiscount = 1;
     const percentDiscount= 0;

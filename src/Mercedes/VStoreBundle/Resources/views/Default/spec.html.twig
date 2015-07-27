@@ -7,5 +7,16 @@
 
 {% block content %}
     {{ parent() }}
-    <p>Optional Specifications</p>
+    <h1>Add personality to your exclusive style</h1>
+    <p>Pick the specification that fits your needs and we will equip your new car with it in no time.</p>
+    <div class="row contentLeft">
+        <div class="col-lg-12">
+            <ul>
+                {% for spec in specification %}
+                    <li>{{ spec.Name }} - {{ spec.Price }}&#8364</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 {% endblock %}

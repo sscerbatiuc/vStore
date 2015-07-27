@@ -40,4 +40,9 @@ class Helper{
         echo '<p style="font-weight:bold">'.$message.'</p>';
     }
     
+    
+    public static function generateClassName($userInput){
+        
+        return ucfirst($userInput)."-Class";
+    }
 }
