@@ -4,18 +4,18 @@
 */
 
 @font-face{
-	font-family: "Corporate A BQ";
-	src:url('../fonts/corporate-a-bq.ttf');
+    font-family: "Corporate A BQ";
+    src:url('../fonts/corporate-a-bq.ttf');
 }
 
 /*********************************************************************************/
 
 html, body{
-	margin: 0;
-	height: 100vh;
-	width: 100vw;
-	color: rgb(25,31,38);
-	
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    color: rgb(25,31,38);
+
 }
 
 body{
@@ -28,110 +28,116 @@ body{
 }
 
 #wrapper {
-	display: table;
-	height: 100%;
-	width: 100%;	
+    display: table;
+    height: 100%;
+    width: 100%;	
 }
 
 /***********************************************************************************/
 
 .logo{
-	display: table-row;
-	text-align: center;
-	height: 150px;
-	font-size: 23px;
-	transition: height 0.1s linear 0s, padding 0.1s linear 0s;
-	overflow:hidden;
-	background: rgba(241,230,215,0.95);
-	color: #FFFFFF;
+    display: table-row;
+    text-align: center;
+    height: 150px;
+    font-size: 23px;
+    transition: height 0.1s linear 0s, padding 0.1s linear 0s;
+    overflow:hidden;
+    background: rgba(241,230,215,0.95);
+    color: #FFFFFF;
 }
 
 .logo #logo_img{
-	background: url("../img/logo_main.png") no-repeat;
-	margin: 0 auto;
-	height: 150px;
-	width: 290px;
+    background: url("../img/logo_main.png") no-repeat;
+    margin: 0 auto;
+    height: 150px;
+    width: 290px;
 }
 
 #navigationContainer{
-	/*margin-right: 10%;
-	margin-left: 10%;*/
-	background: rgba(241,230,215,0.95);
+    /*margin-right: 10%;
+    margin-left: 10%;*/
+    background: rgba(241,230,215,0.95);
 }
 
 .menu{
-	z-index: 999;
-	display: table-row;
-	height: 50px;
-	transition: height 0.1s linear 0s;
+    z-index: 999;
+    display: table-row;
+    height: 50px;
+    transition: height 0.1s linear 0s;
 }
 
 .navigationButtons{
-	font-size: 20px;
+    font-size: 20px;
+    transition: 0.5s linear 0s;
 }
 
 .nav-justified>li>a {
-	color: rgb(25,31,38);
-	font-family: "Corporate A BQ"
+    color: rgb(25,31,38);
+    font-family: "Corporate A BQ";
+    transition: 0.5s linear 0s;
 }
 
 .nav-justified>li>a:hover {
-	color: rgb(25,31,38);
-	background-color: rgb(243,241,240);
+    color: rgb(25,31,38);
+    background-color: rgb(243,241,240);
+    transition: 0.5s linear 0s;
 }
 
 .nav-justified>li .active{
-	background-color: rgb(243,241,240);
-	
+    background-color: rgb(243,241,240);
+    transition: 0.5s linear 0s;
+
 }
 
 /***********************************************************************************/
 
 .contentContainer{
-	display: table-row;
-	height: 100%;
-	width: 100%;
+    display: table-row;
+    height: 100%;
+    width: 100%;
 
 }
 
 .contentContainer #content{
-	font-family: "Corporate A BQ";
-	text-align: center;
-	height: 100%;
-	width: 80%;
-	padding: 0 5%;
-	margin-left: 10%;
-	margin-right: 10%;
-	background: rgba(241,230,215,0.85);
+    font-family: "Corporate A BQ";
+    text-align: center;
+    height: 100%;
+    width: 80%;
+    padding: 0 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: rgba(241,230,215,0.85);
 }
 
 .contentLeft{
-	text-align: left;
+    text-align: left;
 }
 
 .contentLeft>ul>li {
-	font-size: 120%;
+    font-size: 120%;
 }
 
 /************************************************************************************/
 
 .footer {
-	display: table-row;
-	height: 50px;
-	
+    display: table-row;
+    height: 50px;
+
 }
 
 .footer #footerContent{
-	/*margin-right: 10%;
-	margin-left:10%;*/
-	height: 100%;
-	background: rgba(241,230,215,0.95);
+    /*margin-right: 10%;
+    margin-left:10%;*/
+    height: 100%;
+    background: rgba(241,230,215,0.95);
 }
 
 /*********** Makes the menu bar stick to the top when scrolling  ********************/
 .stick{
-	position: fixed;
-	top: 0px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
 }
 
 /***********************************************************************************/

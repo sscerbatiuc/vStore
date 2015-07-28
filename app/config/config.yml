@@ -10,7 +10,7 @@ parameters:
     christmasDiscountStartDate: "15.12.2015"
     christmasDiscountEndDate: "15.01.2016"
     christmasDiscountValue: "0.15"
-    christmasDiscountDescription: "This is a christmas discount option. -15% for each car"
+    christmasDiscountDescription: "Christmas discount option"
 
 framework:
     #esi:             ~
@@ -95,3 +95,6 @@ services:
     OrdinaryDiscount:
         class:  Mercedes\VStoreBundle\Model\Discount\OrdinaryDiscount
         arguments: ['%christmasDiscountStartDate%','%christmasDiscountEndDate%', '%christmasDiscountValue%','%christmasDiscountDescription%']
+    DbUtils:
+        class: Mercedes\VStoreBundle\Model\DatabaseUtils
+        

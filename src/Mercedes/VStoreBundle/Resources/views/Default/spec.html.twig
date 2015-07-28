@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends 'MercedesVStoreBundle::base.html.twig' %}
 
 {% block title %}{{ parent() }} - Specifications {% endblock %}
 {% block body %}
@@ -13,7 +13,7 @@
         <div class="col-lg-12">
             <ul>
                 {% for spec in specification %}
-                    <li>{{ spec.Name }} - {{ spec.Price }}&#8364</li>
+                    <li>{{ spec.nameSpec }} - {{ spec.price }}&#8364</li>
                 {% endfor %}
             </ul>
         </div>

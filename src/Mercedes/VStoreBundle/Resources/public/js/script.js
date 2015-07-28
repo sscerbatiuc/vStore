@@ -17,7 +17,25 @@ $(document).ready(function () {
     });
 });
 
+/**
+ * Redirects the application to the page of the respective class of vehicle
+ * @param string name
+ */
 var selectClass = function (name) {
-    window.location = "car/"+name;
+    window.location = "car/" + name;
 }
-	
+
+/**
+ * 
+ * @param {type} param
+ */
+//$('.customizeButton').click(function () {
+//    $('#modalBodyContent').load("/specSelect", function (responseTxt, statusTxt, xhr) {
+//        if (statusTxt == "success")
+//            alert("External content loaded successfully!");
+//        if (statusTxt == "error")
+//            alert("Error: " + xhr.status + ": " + xhr.statusText);
+//    });
+//});
+
+

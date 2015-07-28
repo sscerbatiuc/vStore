@@ -1,14 +1,17 @@
-{% extends "base.html.twig" %}
+{% extends 'MercedesVStoreBundle::base.html.twig' %}
 
 {% block title %}{{ parent() }} - {{ vehicle.getVehicleClass }} {% endblock %}
+
 {% block body %}
     {{ parent() }}
 {% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/cars.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/homepage.css') }}"/>
 {% endblock %}
+
 {% block content %}
     {{ parent() }}
     <div id="classPicture" 
@@ -23,7 +26,7 @@
             <div class="col-lg-6">
                 <h1 id="classTitle">The new {{ vehicle.getVehicleClass }}</h1>
                 <p id="classPrice">Starting at: {{ vehicle.getVehiclePrice }}&#8364</p>
-                <a id="templateButton" class="btn btn-default customizeButton" href="#" >Customize</a>
+                <a data-toggle="modal" data-target="#myModal"  id="templateButton" class="btn btn-default customizeButton" href="#" >Customize</a>
             </div>
             <div class="col-lg-6">
             </div>
@@ -34,7 +37,7 @@
     </div>
 
     <div class="row contentLeft">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <h3 id="defaultSpecHeader">Default Specifications</h3>
             <ul>
                 {% for spec in vehicle.getDefaultSpecs %}
@@ -43,7 +46,60 @@
                         {% endif %} </li>
                     {% endfor %}
             </ul>
-            <p id="prefixAddSpecifications">Give this car a touch of your personality</p>
-            <a id="templateButton" class="btn btn-default customizeSpecButton" href="#">Customize</a></div>
+
+        </div>
+        <div class="col-lg-6">
+            <h3 id="defaultSpecHeader">Give this car a touch of your personality</h3>
+            <a data-toggle="modal" data-target="#myModal" id="templateButton" class="btn btn-default customizeSpecButton">Customize</a>
+            {% if vehicle.getOptionalSpecs is not empty %}
+                <p>Test</p>
+            {% else %}
+                <p>You haven't set any specification yet</p>
+            {% endif %}
+        </div>
+        <!----################# Modal ###########################-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Choose a specification that fits your needs:</h4>
+
+                    </div>
+                    <div class="modal-body">
+                        <div id='modalBodyContent'>
+                            <div class="row contentLeft">
+                                <div class="col-lg-6">
+                                    <form action="#" method="post">
+                                        {% for spec in specifications %}
+                                            <input type="checkbox" id="{{ spec.getSlug }}" value="{{ spec.getSlug }}"> {{ spec.getNameSpec }} - {{ spec.getPrice }}&#8364<br/>
+                                        {% endfor %}
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div id="modalWindowLogo">
+                                        <p>Hint: <br/> Check all the options you would like to add. Then click 'Save'
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src='/bundles/mercedesvstore/js/bootstrap.min.js'></script>
 {% endblock %}

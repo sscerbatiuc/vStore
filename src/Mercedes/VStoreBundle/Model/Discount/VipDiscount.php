@@ -5,7 +5,7 @@ namespace Mercedes\VStoreBundle\Model\Discount;
 
 class VipDiscount extends Discounts {
 
-    const description = "Reducere pentru clienti VIP";
+    const description = "VIP Discount";
     const discountValue = 1000;
     const activeState = TRUE;
     const orderOfApplication = 0;

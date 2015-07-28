@@ -16,10 +16,10 @@
                 <div class="menu">
                     <div id="navigationContainer">
                         <ul class="nav nav-tabs nav-justified navigationButtons">
-                            <li {#class="active"#}><a href="/">Homepage</a></li>
-                            <li><a href="/cars">Cars</a></li>
-                            <li><a href="/spec">Specifications</a></li>
-                            <li><a href="/discount">Discount</a></li>
+                            <li {% if active = home %} class="active" {% endif %}}<a href="/">Homepage</a></li>
+                            <li {% if active = cars %} class="active" {% endif %}><a href="/cars">Cars</a></li>
+                            <li {% if active = specs %} class="active" {% endif %}><a href="/spec">Specifications</a></li>
+                            <li {% if active = discount %} class="active" {% endif %}><a href="/discount">Discount</a></li>
                         </ul>
                     </div>
                 </div>
