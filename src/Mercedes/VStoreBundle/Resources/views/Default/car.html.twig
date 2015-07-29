@@ -1,5 +1,5 @@
 {% extends 'MercedesVStoreBundle::base.html.twig' %}
-{% set vehicle = app.session.get('automobile') %}
+{% set vehicle = app.session.get('automobileSession') %}
 
 {% block title %}{{ parent() }} - {{ vehicle.getVehicleClass }} {% endblock %}
 
@@ -15,18 +15,20 @@
 
 {% block content %}
     {{ parent() }}
-    {{ dump(specifications)}}
+
+
+
+    {#{{ dump(specifications)}}
     {{ dump(vehicle) }}
     {{ dump(vehicle.getDefaultSpecs)}}
-    {{ dump(vehicle.getOptionalSpecs)}}
+    {{ dump(vehicle.getOptionalSpecs)}}#}
+
+
+
+
     <div id="classPicture" 
          style="background-image: url({{ asset('bundles/mercedesvstore/img/full-size/Cars/'~vehicle.getVehicleClass~'.jpg') }}); 
-         display: inline-block;
-         padding: 1% 3%;
-         height: 500px;
-         width: 100%;
-         background-position: center;
-         background-size: cover;">
+        ">
         <div class="row">
             <div class="col-lg-6">
                 <h1 id="classTitle">The new {{ vehicle.getVehicleClass }}</h1>
@@ -56,21 +58,20 @@
         <div class="col-lg-6">
             <h3 id="defaultSpecHeader">Give this car a touch of your personality</h3>
             <a data-toggle="modal" data-target="#myModal" id="templateButton" class="btn btn-default customizeSpecButton">Customize</a>
-            
-            
-            
+            <br/>
+            <a data-toggle="modal" data-target="#modalPrice" id="templateButton" class="btn btn-default customizeSpecButton" onclick="">Calculate Price</a>
+
+
             {#{% if vehicle.getOptionalSpecs is not empty %}
                 <p>You can proceed to checkout</p>
             {% else %}
                 <p>You haven't set any specification yet</p>
             {% endif %}#}
-            
-            
-            
-            
+
         </div>
-        <!----################# Modal ###########################-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!----####################### MODAL WINDOW - DISPLAYS THE AVAILABLE  OPTIONAL SPECIFICATIONS #########################-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+             aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -78,6 +79,7 @@
                         <h4 class="modal-title">{{ vehicle.getVehicleClass }} - Customize</h4>
 
                     </div>
+                    {# MODAL-BODY #}
                     <div class="modal-body">
                         <div id='modalBodyContent'>
                             <div class="row contentLeft">
@@ -89,9 +91,9 @@
                                         {% endfor %}
                                     </form>
                                     {% if vehicle.getOptionalSpecs is not empty %}
-                                    <h3>New price:</h4>
-                                    <h4 id="recalculatedPrice"></h4>
-                                    {% endif %}
+                                        <h3>New price:</h4>
+                                            <h4 id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>
+                                        {% endif %}
                                 </div>
                                 <div class="col-lg-6">
                                     <div id="modalWindowLogo">
@@ -102,16 +104,60 @@
 
                         </div>
                     </div>
+                    {# /#MODAL-BODY #}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Save</button>
                     </div>
                 </div>
-                <!-- /.modal-content -->
+                <!-- /.MODAL-CONTENT -->
             </div>
-            <!-- /.modal-dialog -->
+            <!-- /.MODAL-DIALOG -->
         </div>
-        <!-- /.modal -->
+        <!-- /.MODAL -->
+
+        <!----################################## MODAL THAT DISPLAYS THE CALCULATED PRICE ##################################-->
+        <div class="modal fade" id="modalPrice" tabindex="-1" role="dialog" 
+             aria-labelledby="modalPriceLabel" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">{{ vehicle.getVehicleClass }} - Price</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id='modalBodyContent'>
+                            <div class="row contentLeft">
+                                <div class="col-lg-6">
+                                   {% if vehicle.getOptionalSpecs is not empty %}
+                                        <h3>Price <small>(including new specifications)</small></h3>
+                                            <h4 id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>
+                                            {% else %}
+                                                <h3>Price:</h3>
+                                            <h4 id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>        
+                                        {% endif %}
+                                </div>
+                                <div class="col-lg-6">
+                                    <div id="modalWindowLogo">
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+                <!-- /.MODAL-CONTENT -->
+            </div>
+            <!-- /.MODAL-DIALOG -->
+        </div>
+        <!-- /.MODAL -->
 
     </div>
 {% endblock %}

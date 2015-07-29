@@ -281,7 +281,7 @@ class Automobile {
                                 $recalculatedPrice -= ($recalculatedPrice * $reductionValue) );
             }
         }
-        return $recalculatedPrice . "&#8364";
+        return $recalculatedPrice;
     }
 
 }
