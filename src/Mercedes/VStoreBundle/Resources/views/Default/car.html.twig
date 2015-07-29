@@ -1,4 +1,5 @@
 {% extends 'MercedesVStoreBundle::base.html.twig' %}
+{% set vehicle = app.session.get('automobile') %}
 
 {% block title %}{{ parent() }} - {{ vehicle.getVehicleClass }} {% endblock %}
 
@@ -14,6 +15,10 @@
 
 {% block content %}
     {{ parent() }}
+    {{ dump(specifications)}}
+    {{ dump(vehicle) }}
+    {{ dump(vehicle.getDefaultSpecs)}}
+    {{ dump(vehicle.getOptionalSpecs)}}
     <div id="classPicture" 
          style="background-image: url({{ asset('bundles/mercedesvstore/img/full-size/Cars/'~vehicle.getVehicleClass~'.jpg') }}); 
          display: inline-block;
@@ -51,11 +56,18 @@
         <div class="col-lg-6">
             <h3 id="defaultSpecHeader">Give this car a touch of your personality</h3>
             <a data-toggle="modal" data-target="#myModal" id="templateButton" class="btn btn-default customizeSpecButton">Customize</a>
-            {% if vehicle.getOptionalSpecs is not empty %}
-                <p>Test</p>
+            
+            
+            
+            {#{% if vehicle.getOptionalSpecs is not empty %}
+                <p>You can proceed to checkout</p>
             {% else %}
                 <p>You haven't set any specification yet</p>
-            {% endif %}
+            {% endif %}#}
+            
+            
+            
+            
         </div>
         <!----################# Modal ###########################-->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -63,18 +75,23 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Choose a specification that fits your needs:</h4>
+                        <h4 class="modal-title">{{ vehicle.getVehicleClass }} - Customize</h4>
 
                     </div>
                     <div class="modal-body">
                         <div id='modalBodyContent'>
                             <div class="row contentLeft">
                                 <div class="col-lg-6">
+                                    <p>Choose a specification that fits your needs:</p>
                                     <form action="#" method="post">
                                         {% for spec in specifications %}
-                                            <input type="checkbox" id="{{ spec.getSlug }}" value="{{ spec.getSlug }}"> {{ spec.getNameSpec }} - {{ spec.getPrice }}&#8364<br/>
+                                            <input type="checkbox" id="{{ spec.getSlug }}" value="{{ spec.getSlug }}" onchange="addSpecification('{{spec.getSlug}}');"> {{ spec.getNameSpec }} - {{ spec.getPrice }}&#8364<br/>
                                         {% endfor %}
                                     </form>
+                                    {% if vehicle.getOptionalSpecs is not empty %}
+                                    <h3>New price:</h4>
+                                    <h4 id="recalculatedPrice"></h4>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-6">
                                     <div id="modalWindowLogo">

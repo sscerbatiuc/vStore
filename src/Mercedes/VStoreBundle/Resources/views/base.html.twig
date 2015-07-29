@@ -17,10 +17,10 @@
                 <div class="menu">
                     <div id="navigationContainer">
                         <ul class="nav nav-tabs nav-justified navigationButtons">
-                            <li {% if activeMenuItem == 'home' %} class="active" {% endif %}><a href="/">Homepage</a></li>
-                            <li {% if activeMenuItem == 'cars' %} class="active" {% endif %}><a href="/cars">Cars</a></li>
-                            <li {% if activeMenuItem == 'spec' %} class="active" {% endif %}><a href="/spec">Specifications</a></li>
-                            <li {% if activeMenuItem == 'discount' %} class="active" {% endif %}><a href="/discount">Discount</a></li>
+                            <li {% if activeMenuItem == 'home' %} class="active" {% endif %}><a href="{{ path("homepage") }}">Homepage</a></li>
+                            <li {% if activeMenuItem == 'cars' %} class="active" {% endif %}><a href="{{ path("selectClass") }}">Cars</a></li>
+                            <li {% if activeMenuItem == 'spec' %} class="active" {% endif %}><a href="{{ path("viewSpecifications") }}">Specifications</a></li>
+                            <li {% if activeMenuItem == 'discount' %} class="active" {% endif %}><a href="{{ path("viewDiscountOptions") }}">Discount</a></li>
                         </ul>
                     </div>
                 </div>

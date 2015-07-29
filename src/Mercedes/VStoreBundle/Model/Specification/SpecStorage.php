@@ -134,4 +134,22 @@ class SpecStorage{
         $result = array_key_exists($nameSpec,self::$optionalSpecifications);
         return $result;
     }
+    
+    /**
+     * Filters the available specifications list for a specific vehicle, therefore preventing from adding optional specifications that exist in default specifications list
+     * @param array $carDefault
+     * @param array $availableSpecs
+     * @return array
+     */
+    public static function adjustOptionalSpecifications($carDefault, $availableSpecs){
+        
+        $optionalSpecs = $availableSpecs;
+        
+        foreach ($optionalSpecs as $key => $specificationObject) {
+            if(array_key_exists($specificationObject->getNameSpec(), $carDefault)){
+                unset($optionalSpecs[$key]);
+            }
+        }
+        return $optionalSpecs;
+    }
 }

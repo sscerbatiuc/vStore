@@ -4,7 +4,10 @@ namespace Mercedes\VStoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Mercedes\VStoreBundle\Model\Helper\Helper;
@@ -15,6 +18,7 @@ use Mercedes\VStoreBundle\Entity\Specification;
 class DefaultController extends Controller {
     
     /**
+     * Homepage
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
@@ -23,6 +27,7 @@ class DefaultController extends Controller {
     }
 
     /**
+     * When user clicks on the car button on the menu, he is redirected to this page
      * @Route("/cars",name="selectClass")
      * @return type
      */
@@ -31,6 +36,7 @@ class DefaultController extends Controller {
     }
 
     /**
+     * On the page with classes, the user can select a specific class
      * @Route("/car/{className}", name="viewCar")
      * @return type
      */
@@ -39,13 +45,18 @@ class DefaultController extends Controller {
         $vehicle = $this->get('AutoFactory');
         $vehicle::getInstance();
         $car = $vehicle->createVehicle($className);
+        $session->set("automobile", $car);
+        
         $entityManager = $this->getDoctrine();
         $repository = $entityManager->getRepository('MercedesVStoreBundle:Specification');
         $specs = $repository->findAll();
-        return $this->render('MercedesVStoreBundle:Default:car.html.twig', array("vehicle" => $car, "specifications" => $specs, "activeMenuItem" => "cars"));
+        
+        $availableSpecs = SpecStorage::adjustOptionalSpecifications($car->getDefaultSpecs(), $specs);
+        return $this->render('MercedesVStoreBundle:Default:car.html.twig', array("specifications" => $availableSpecs, "activeMenuItem" => "cars"));
     }
 
     /**
+     * Displays the general information about the specifications that can be added to the vehicles
      * @Route("/spec", name="viewSpecifications")
      * @return twig
      */
@@ -58,6 +69,7 @@ class DefaultController extends Controller {
     }
 
     /**
+     * Generates an json using the information about the specifications from the DB 
      * @Route("/specSelect", name="selectSpecifications")
      * @return array
      */
@@ -75,6 +87,7 @@ class DefaultController extends Controller {
     }
 
     /**
+     * Displays the general information about the discount options available
      * @Route("/discount",name="viewDiscountOptions")
      * @return type
      */
@@ -85,6 +98,23 @@ class DefaultController extends Controller {
         array_push($options, $christmasDiscount);
         array_push($options, $vipDiscount);
         return $this->render('MercedesVStoreBundle:Default:discount.html.twig', array("options" => $options, "activeMenuItem" => "discount"));
+    }
+    
+    /**
+     * Equips the vehicle objects with the selected specification from the modal window
+     * @Route("/addSpec/{specSlug}", name="addSpecification")
+     * @param string $specSlug
+     * @return Response
+     */
+    public function addSpecificationAction(Request $request, $specSlug){
+        $session = $request->getSession();
+        $automobile = $session->get("automobile");
+        $automobile->equipOptionalSpec($specSlug);
+        dump($automobile);
+        dump($automobile->getOptionalSpecs());
+//        $session->clear();
+        $session->set("automobile", $automobile);
+        return new Response();
     }
 
 }

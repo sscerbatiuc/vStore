@@ -3,6 +3,7 @@
 namespace Mercedes\VStoreBundle\Model\Vehicle;
 
 use Mercedes\VStoreBundle\Model\Helper\Helper;
+use Mercedes\VStoreBundle\Model\Specification\SpecStorage;
 
 class Automobile {
 
@@ -161,7 +162,7 @@ class Automobile {
             if (!$isSpecAdded) {
                 $this->optionalSpecs[$specificationName] = $specObject;
             } else {
-                Helper::displayErrorMessage("The specification: " . $specObject->getNameSpec() . " is already equipped");
+                
             }
         } else {
             

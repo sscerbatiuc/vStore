@@ -25,6 +25,21 @@ var selectClass = function (name) {
     window.location = "car/" + name;
 }
 
+var addSpecification = function(specSlug){
+//    jQuery.ajax("/addSpec/"+specSlug);
+    $.ajax({
+       type: 'GET',
+       url: "/addSpec/"+specSlug,
+       success:function(){
+           alert("Specification: "+specSlug+" OK");
+           location.reload();
+       },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Req: "+jqXHR+ " Status: "+textStatus+" Error:"+errorThrown);
+        }
+    });
+}
+
 /**
  * 
  * @param {type} param
