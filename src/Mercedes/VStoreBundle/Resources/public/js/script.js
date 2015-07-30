@@ -25,6 +25,11 @@ var selectClass = function (name) {
     window.location = "car/" + name;
 }
 
+/**
+ * 
+ * @param {type} specSlug
+ * @returns {undefined}
+ */
 var addSpecification = function(specSlug){
 //    jQuery.ajax("/addSpec/"+specSlug);
     $.ajax({
