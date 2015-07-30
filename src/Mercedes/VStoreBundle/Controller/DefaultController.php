@@ -24,7 +24,7 @@ class DefaultController extends Controller {
      * @Route("/cars",name="selectClass")
      * @return type
      */
-    public function carAction(Request $request) {
+    public function navigateCarSectionAction(Request $request) {
         $session = $request->getSession();
         $session->clear();
         return $this->render('MercedesVStoreBundle:Default:vehicles.html.twig', array("activeMenuItem" => "cars"));
@@ -35,7 +35,7 @@ class DefaultController extends Controller {
      * @Route("/car/{className}", name="viewCar")
      * @return type
      */
-    public function viewCarAction($className, Request $request) {
+    public function selectCarAction($className, Request $request) {
 
         $session = $request->getSession();
         $automobileFactory = $this->get('AutoFactory');
@@ -44,6 +44,8 @@ class DefaultController extends Controller {
         //Check whether the automobile is already registered in the session
         if ($car == NULL) {
             $car = $automobileFactory->createVehicle($className);
+            $christmasDiscount = $this->get('OrdinaryDiscount');
+            $car->addDiscountOption($christmasDiscount);
             $session->set("automobileSession", $car);
         }
         $specs = $this->getSpecificationsDoctrine();
@@ -57,7 +59,7 @@ class DefaultController extends Controller {
      * @Route("/spec", name="viewSpecifications")
      * @return twig
      */
-    public function specAction(Request $request) {
+    public function displaySpecsAction(Request $request) {
         $session = $request->getSession();
         $session->clear();
         $specs = $this->getSpecificationsDoctrine();
@@ -69,7 +71,7 @@ class DefaultController extends Controller {
      * @Route("/specSelect", name="selectSpecifications")
      * @return array
      */
-    public function specSelectAction(Request $request) {
+    public function selectSpecAction(Request $request) {
         $session = $request->getSession();
         $session->clear();
         $specs = $this->getSpecificationsDoctrine();
@@ -86,7 +88,7 @@ class DefaultController extends Controller {
      * @Route("/discount",name="viewDiscountOptions")
      * @return type
      */
-    public function discountAction(Request $request) {
+    public function displayDiscountAction(Request $request) {
         $vipDiscount = $this->get('VipDiscount');
         $christmasDiscount = $this->get('OrdinaryDiscount');
         $options = array();
@@ -99,42 +101,108 @@ class DefaultController extends Controller {
      * Equips the vehicle objects with the selected specification from the modal window
      * @Route("/addSpec/{specSlug}", name="addSpecification")
      * @param string $specSlug
-     * @return Response
+     * @return JSON Specification Name
      */
     public function addSpecificationAction(Request $request, $specSlug) {
 
         $session = $request->getSession();
-        $vehiclCustomize = $session->get("automobileSession");
-        $vehiclCustomize->equipOptionalSpec($specSlug);
-        $testSpec = $vehiclCustomize->getOptionalSpecs();
-        $session->set("automobileSession", $vehiclCustomize);
-        return new Response();
+        $vehicleToCustomize = $session->get("automobileSession");
+        $vehicleToCustomize->equipOptionalSpec($specSlug);
+
+        $specification = SpecStorage::getSpecification($specSlug);
+        $specName = $specification->getNameSpec();
+
+        $session->set("automobileSession", $vehicleToCustomize);
+
+        $array = json_encode(array("specName" => $specName));
+        $response = new Response($array);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * Removes the optional specification from the vehicle held in the session
+     * @Route("/removeSpec/{specSlug}", name="removeSpecification")
+     * @param Request $request
+     * @param string $specSlug
+     * @return JSON Specification Name
+     */
+    public function removeSpecificationAction(Request $request, $specSlug) {
+
+        $session = $request->getSession();
+        $specificationToRemove = SpecStorage::getSpecification($specSlug);
+        $removedSpecName = $specificationToRemove->getNameSpec();
+        $vehicleToCustomize = $session->get("automobileSession");
+        $vehicleToCustomize->deleteSpec($specSlug);
+        $session->set("automobileSession", $vehicleToCustomize);
+        $responseArray = json_encode(array("removedSpec" => $removedSpecName));
+        $response = new Response($responseArray);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * Retrieves the recalculated price of the vehicle.
+     * @Route("/price", name="priceCalculator")
+     * @param Request $request
+     * @return JSON Vehicle Price
+     */
+    public function displayRecalculatedPriceAction(Request $request) {
+        $session = $request->getSession();
+        $vehicle = $session->get("automobileSession");
+        $newPrice = $vehicle->calculatePrice();
+
+        $response = new Response(json_encode(array("newPrice" => $newPrice)));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * Assigns a specific discount option to the vehicle
+     * @Route("/isVip/true")
+     * @param string $discountType
+     * @return Response
+     */
+    public function addVipDiscountAction(Request $request){
+        
+        $session = $request->getSession();
+        $vipDiscount = $this->get('VipDiscount');
+        $vehicle = $session->get('automobileSession');
+        $vehicle->addDiscountOption($vipDiscount);
+        $session->set("automobileSession", $vehicle);
+        $response = new Response();
+//        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
     
+    /**
+     * Removes the Vip discount option from the vehicle stored in the session
+     * @Route("/isVip/false")
+     * @param Request $request
+     * @return Response
+     */
+    public function removeVipDiscountAction(Request $request){
+        $session = $request->getSession();
+        $vipDiscount = $this->get('VipDiscount');
+        $vehicle = $session->get('automobileSession');
+        $vehicle->removeDiscountOption($vipDiscount);
+        $session->set("automobileSession", $vehicle);
+         $response = new Response();
+//        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+
     /**
      * Retrieves the information about the specifications from the DB
      * @return array
      */
-    public function getSpecificationsDoctrine(){
+    public function getSpecificationsDoctrine() {
         $entityManager = $this->getDoctrine();
         $repository = $entityManager->getRepository('MercedesVStoreBundle:Specification');
         $specs = $repository->findAll();
         return $specs;
-    }
-    
-    /**
-     * @Route("/price", name="priceCalculator")
-     * @param Request $request
-     */
-    public function displayRecalculatedPriceAction(Request $request){
-        $session = $request->getSession();
-        $vehicle = $session->get("automobileSession");
-        $newPrice = $vehicle->calculatePrice();
-        $json = json_encode(array("newPrice" => $newPrice));
-//        $response = new Response(json_encode(array("newPrice" => $newPrice)));
-//        $response->headers->set('Content-Type', 'application/json');
-        return new Response(json_encode(array("newPrice" => $newPrice)));
-        
     }
 
 }

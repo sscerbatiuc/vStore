@@ -1,0 +1,73 @@
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+             aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+<div class="modal-header">
+    <h4 class="modal-title">{{ vehicle.getVehicleClass }} - Customize</h4>
+</div>
+
+<!-- MODAL-BODY -->
+<div class="modal-body">
+    <div id='modalBodyContent'>
+        <div class="row contentLeft">
+            <div class="col-lg-12">
+                <div class="alert alert-success" style="display:none"></div>
+            </div>
+            <div class="col-lg-6">
+<p>Choose a specification that fits your needs:</p>
+<form action="#" method="post">
+    <!-- CREATE A LIST OF SPECIFICATIONS -->
+    {% for spec in specifications %}
+
+        {% set searchedSlug = spec.getSlug %}
+        {# specifications = vehicle optionalSpecifications array #}
+        {% if vehicleOptionalSpecs[searchedSlug] is defined %}
+            <input type="checkbox" id="{{ spec.getSlug }}" 
+                   value="{{ spec.getSlug }}" checked="checked"
+                   onchange="manageVehicleSpecs('{{ spec.getSlug }}')">
+
+            {{ spec.getNameSpec }} - {{ spec.getPrice }}&#8364<br/>
+        {% else %}
+            <input type="checkbox" id="{{ spec.getSlug }}" 
+                   value="{{ spec.getSlug }}" 
+                   onchange="manageVehicleSpecs('{{ spec.getSlug }}');">
+
+            {{ spec.getNameSpec }} - {{ spec.getPrice }}&#8364<br/>
+        {% endif %}
+    {% endfor %}
+    <!-- /CREATE A LIST OF SPECIFICATIONS -->
+</form>
+                                    {% if vehicle.getOptionalSpecs is empty %}
+<h3 class="Price" style="display:none">Price:</h4>
+    <h4 class="Price" style="display:none" 
+        id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>
+{% else %}
+<h3 class="Price">Price:</h4>
+    <h4 class="Price" 
+        id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>    
+{% endif %}
+</div>
+<div class="col-lg-6">
+    <div id="modalWindowLogo">
+        <p>Hint: <br/> Check all the options you would like to add. Then click 'Save'
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+<!-- /#MODAL-BODY -->
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" 
+            data-dismiss="modal" 
+            onclick="reloadPage();">Close</button>
+    <button type="submit" class="btn btn-success" 
+            data-dismiss="modal" 
+            onClick="reloadPage();">Save</button>
+</div>
+</div>
+<!-- /.MODAL-CONTENT -->
+</div>
+<!-- /.MODAL-DIALOG -->
+</div>

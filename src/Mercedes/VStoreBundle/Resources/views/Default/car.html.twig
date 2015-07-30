@@ -1,46 +1,55 @@
 {% extends 'MercedesVStoreBundle::base.html.twig' %}
 {% set vehicle = app.session.get('automobileSession') %}
+{% set vehicleOptionalSpecs = vehicle.getOptionalSpecs %}
+
+{# -- TITLE -- #}
 
 {% block title %}{{ parent() }} - {{ vehicle.getVehicleClass }} {% endblock %}
+
+{# -- /TITLE -- #}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" 
+          href="{{ asset('bundles/mercedesvstore/css/cars.css') }}"/>
+    <link rel="stylesheet" type="text/css" 
+          href="{{ asset('bundles/mercedesvstore/css/homepage.css') }}"/>
+{% endblock %}
 
 {% block body %}
     {{ parent() }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/cars.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/homepage.css') }}"/>
-{% endblock %}
+{# -- PAGE CONTENT -- #}
 
 {% block content %}
-    {{ parent() }}
+{{ parent() }}
 
-
-
-    {#{{ dump(specifications)}}
-    {{ dump(vehicle) }}
-    {{ dump(vehicle.getDefaultSpecs)}}
-    {{ dump(vehicle.getOptionalSpecs)}}#}
-
-
-
+    {# -- #CLASSPICTURE -- #}
 
     <div id="classPicture" 
          style="background-image: url({{ asset('bundles/mercedesvstore/img/full-size/Cars/'~vehicle.getVehicleClass~'.jpg') }}); 
-        ">
+         ">
         <div class="row">
+            
             <div class="col-lg-6">
                 <h1 id="classTitle">The new {{ vehicle.getVehicleClass }}</h1>
                 <p id="classPrice">Starting at: {{ vehicle.getVehiclePrice }}&#8364</p>
-                <a data-toggle="modal" data-target="#myModal"  id="templateButton" class="btn btn-default customizeButton" href="#" >Customize</a>
+                <a data-toggle="modal" data-target="#myModal" 
+                   id="templateButton" class="btn btn-default 
+                   customizeButton" href="#">Customize</a>
             </div>
+            {# ENSURE THE DIV IS DIVIDED IN 2 COLUMNS #}
             <div class="col-lg-6">
+                
             </div>
         </div>
     </div>
+
+    {# --/ #CLASSPICTURE -- #}
+
     <div class="row">
-        <p><strong>Description</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras enim ligula, suscipit in eros interdum, molestie scelerisque turpis. Sed efficitur arcu non felis pharetra volutpat. Phasellus finibus purus ac quam pulvinar, et accumsan turpis efficitur. Sed faucibus quis lectus et dignissim. Maecenas pharetra, massa eget maximus vulputate, libero ante pulvinar dolor, vitae sagittis velit orci eu magna. Vivamus nec metus convallis, suscipit tellus eu, ullamcorper dolor. Aenean pharetra sodales lorem, ut fermentum tellus. Nulla lectus massa, sagittis eget urna a, tristique porttitor velit. Integer tempus imperdiet nibh ac eleifend. Etiam suscipit malesuada odio a pellentesque. Praesent faucibus rhoncus metus, in interdum urna mollis et. Fusce malesuada dolor non dui laoreet molestie. Praesent eget elementum eros.</p>
+        <p><strong>Description</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus felis sapien, volutpat in tortor ac, rhoncus ornare sapien. Nunc semper, sapien sit amet venenatis imperdiet, nibh libero pretium dui, non lobortis sem nibh a nisi. Morbi eu ultrices diam. Donec nisl quam, pretium id egestas in, congue ac nulla. Donec tempor ligula nec tortor eleifend, eu consectetur massa faucibus. Nulla luctus faucibus semper. Aliquam erat volutpat. Donec congue nunc sed enim suscipit pulvinar. Morbi nec egestas ipsum, ut pellentesque enim.</p>
     </div>
 
     <div class="row contentLeft">
@@ -53,114 +62,38 @@
                         {% endif %} </li>
                     {% endfor %}
             </ul>
+            <h3>Price</h3>
+            <h4>{{vehicle.getVehiclePrice}}&#8364</h4>
 
         </div>
         <div class="col-lg-6">
             <h3 id="defaultSpecHeader">Give this car a touch of your personality</h3>
             <a data-toggle="modal" data-target="#myModal" id="templateButton" class="btn btn-default customizeSpecButton">Customize</a>
-            <br/>
-            <a data-toggle="modal" data-target="#modalPrice" id="templateButton" class="btn btn-default customizeSpecButton" onclick="">Calculate Price</a>
 
-
-            {#{% if vehicle.getOptionalSpecs is not empty %}
-                <p>You can proceed to checkout</p>
+            {% if vehicleOptionalSpecs is empty %}
+                <p class="adnotation">You haven't added any options yet</p>
             {% else %}
-                <p>You haven't set any specification yet</p>
-            {% endif %}#}
+                <p class="adnotation" 
+                   style="visibility: hidden">You haven't added any options yet</p>
+            {% endif %}
 
+            <a data-toggle="modal" data-target="#modalPrice" 
+               id="templateButton" class="btn btn-default customizeSpecButton" 
+               onclick="">Information</a>
+            
         </div>
-        <!----####################### MODAL WINDOW - DISPLAYS THE AVAILABLE  OPTIONAL SPECIFICATIONS #########################-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
-             aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">{{ vehicle.getVehicleClass }} - Customize</h4>
 
-                    </div>
-                    {# MODAL-BODY #}
-                    <div class="modal-body">
-                        <div id='modalBodyContent'>
-                            <div class="row contentLeft">
-                                <div class="col-lg-6">
-                                    <p>Choose a specification that fits your needs:</p>
-                                    <form action="#" method="post">
-                                        {% for spec in specifications %}
-                                            <input type="checkbox" id="{{ spec.getSlug }}" value="{{ spec.getSlug }}" onchange="addSpecification('{{spec.getSlug}}');"> {{ spec.getNameSpec }} - {{ spec.getPrice }}&#8364<br/>
-                                        {% endfor %}
-                                    </form>
-                                    {% if vehicle.getOptionalSpecs is not empty %}
-                                        <h3>New price:</h4>
-                                            <h4 id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>
-                                        {% endif %}
-                                </div>
-                                <div class="col-lg-6">
-                                    <div id="modalWindowLogo">
-                                        <p>Hint: <br/> Check all the options you would like to add. Then click 'Save'
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    {# /#MODAL-BODY #}
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </div>
-                </div>
-                <!-- /.MODAL-CONTENT -->
-            </div>
-            <!-- /.MODAL-DIALOG -->
-        </div>
+        <!-- MODAL WINDOW - DISPLAYS THE AVAILABLE  OPTIONAL SPECIFICATIONS -->
+        {% include 'MercedesVStoreBundle:Modal:addSpecification.html.twig' %}
         <!-- /.MODAL -->
 
-        <!----################################## MODAL THAT DISPLAYS THE CALCULATED PRICE ##################################-->
-        <div class="modal fade" id="modalPrice" tabindex="-1" role="dialog" 
-             aria-labelledby="modalPriceLabel" aria-hidden="true">
-
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">{{ vehicle.getVehicleClass }} - Price</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div id='modalBodyContent'>
-                            <div class="row contentLeft">
-                                <div class="col-lg-6">
-                                   {% if vehicle.getOptionalSpecs is not empty %}
-                                        <h3>Price <small>(including new specifications)</small></h3>
-                                            <h4 id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>
-                                            {% else %}
-                                                <h3>Price:</h3>
-                                            <h4 id="recalculatedPrice">{{vehicle.calculatePrice}}&#8364</h4>        
-                                        {% endif %}
-                                </div>
-                                <div class="col-lg-6">
-                                    <div id="modalWindowLogo">
-
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </div>
-                </div>
-                <!-- /.MODAL-CONTENT -->
-            </div>
-            <!-- /.MODAL-DIALOG -->
-        </div>
+        <!-- MODAL THAT DISPLAYS THE CALCULATED PRICE -->
+        {% include 'MercedesVStoreBundle:Modal:calculatePrice.html.twig' %}
         <!-- /.MODAL -->
 
     </div>
 {% endblock %}
+{#/-- PAGE CONTENT -- #}
 
 {% block javascripts %}
     {{parent()}}

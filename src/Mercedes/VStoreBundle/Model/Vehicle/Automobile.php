@@ -5,7 +5,7 @@ namespace Mercedes\VStoreBundle\Model\Vehicle;
 use Mercedes\VStoreBundle\Model\Helper\Helper;
 use Mercedes\VStoreBundle\Model\Specification\SpecStorage;
 
-class Automobile {
+abstract class Automobile {
 
     private $vehicleMake = "Mercedes-Benz";
     private $vehicleClass;
@@ -25,8 +25,7 @@ class Automobile {
     /**
      * 
      */
-//    abstract function equipCar();
-
+    //abstract function equipCar();
     //GETTERS
     function getVehicleMake() {
         return $this->vehicleMake;
@@ -39,7 +38,7 @@ class Automobile {
     function getVehiclePrice() {
         return $this->vehiclePrice;
     }
-    
+
     function getDefaultSpecs() {
         return $this->defaultSpecs;
     }
@@ -48,7 +47,6 @@ class Automobile {
         return $this->optionalSpecs;
     }
 
-    
     // SETTERS
     public function setVehicleClass($vehicleClass) {
         $this->vehicleClass = $vehicleClass;
@@ -57,7 +55,7 @@ class Automobile {
     public function setVehiclePrice($vehiclePrice) {
         $this->vehiclePrice = $vehiclePrice;
     }
-    
+
     /**
      * Displays the general information about the vehicle:
      * Make, Class, Price
@@ -71,7 +69,7 @@ class Automobile {
         return $generalInfo;
     }
 
-     /**
+    /**
      * Displays all the specifications of the Vehicle (Default & Optional)
      */
     public function viewAllSpecifications() {
@@ -111,8 +109,6 @@ class Automobile {
         Helper::displayInfoMessage($optionalSpecList);
     }
 
-    
-      
     /**
      * Adds the default specification to the Vehicle
      * @param Spec $specification
@@ -149,7 +145,6 @@ class Automobile {
         }
     }
 
-    
     /**
      * Adds the optional specification to the Vehicle
      * @param Spec $optionalSpec
@@ -184,7 +179,6 @@ class Automobile {
             }
         }
     }
-    
 
     /**
      * Checks if an optional specification is assigned to the vehicle -> deletes it
@@ -195,54 +189,63 @@ class Automobile {
 
         $specificationExists = SpecStorage::getSpecification($specName);
         if (!isset($specificationExists)) {
-            Helper::displayErrorMessage("There is no such specification: " . $specName);
+//            Helper::displayErrorMessage("There is no such specification: " . $specName);
         } else {
             $isEquipped = isset($this->optionalSpecs[$specName]);
             if ($isEquipped) {
-                Helper::displayInfoMessage("DELETING optional specification: " . $this->optionalSpecs[$specName]->getNameSpec());
-                $deletedSpec = $this->optionalSpecs[$specName]->getNameSpec();
+//                Helper::displayInfoMessage("DELETING optional specification: " . $this->optionalSpecs[$specName]->getNameSpec());
+//                $deletedSpec = $this->optionalSpecs[$specName]->getNameSpec();
                 unset($this->optionalSpecs[$specName]);
-                Helper::displaySuccessMessage("The specification (" . $deletedSpec . ") was successfully deleted");
+//                Helper::displaySuccessMessage("The specification (" . $deletedSpec . ") was successfully deleted");
             } else {
-                Helper::displayErrorMessage("This car is not equipped with: " . $specificationExists->getNameSpec());
+//                Helper::displayErrorMessage("This car is not equipped with: " . $specificationExists->getNameSpec());
             }
         }
     }
-    
-    
+
     /**
      * Adds discount options to the vehicle. 
      * Therefore, the price will be calculated with the discount value taken into account.
      * @param Reduceri $discountOption
      */
-    public function addDiscountOption(Discounts $discountOption) {
+    public function addDiscountOption($discountOption) {
         $optionClass = get_class($discountOption);
         $isOptionAdded = array_key_exists($optionClass, $this->discountOptions);
         if (!$isOptionAdded) {
             $this->discountOptions[$optionClass] = $discountOption;
             $this->rangeDiscountOptions();
         } else {
-            Helper::displayErrorMessage("The discount option is already assigned to the vehicle");
+//            Helper::displayErrorMessage("The discount option is already assigned to the vehicle");
         }
     }
     
-     /**
-     * Ranges the applicable discount options, depending on the order of each option
-     */
-    public function rangeDiscountOptions() {
-        usort($this->discountOptions, array("Automobile", "compareDiscountOptions"));
+    public function removeDiscountOption($discountOption){
+        $optionClass = get_class($discountOption);
+        $isOptionAdded = array_key_exists($optionClass, $this->discountOptions);
+        if (!$isOptionAdded) {
+            unset($this->discountOptions[$optionClass]);
+        }
+        
     }
-    
 
     /**
      * Displays all the available discount options applicable for the vehicle
      */
     public function viewDiscountOptions() {
         echo $this;
-        Helper::displayInfoMessage("The discount options available for this vehicle");
+//        Helper::displayInfoMessage("The discount options available for this vehicle");
         foreach ($this->discountOptions as $option) {
             echo $option;
         }
+    }
+
+    /**
+     * Ranges the applicable discount options, depending on the order of each option
+     */
+    public function rangeDiscountOptions() {
+        usort($this->discountOptions, function ($option1, $option2) {
+            return strcmp($option1->getOrder(), $option2->getOrder());
+        });
     }
 
     /**
@@ -258,8 +261,7 @@ class Automobile {
 
         return strcmp($option1->getOrder(), $option2->getOrder());
     }
-    
-   
+
     /**
      * Calculates the price of the vehicle with all the optional specifications 
      * included
@@ -267,7 +269,7 @@ class Automobile {
      */
     public function calculatePrice() {
         $price = $this->getVehiclePrice();
-        $recalculatedPrice = number_format($price, 2, ".", "");
+        $recalculatedPrice = number_format($price, 0, ".", "");
         foreach ($this->optionalSpecs as $optionalSpec) {
 
             $recalculatedPrice += ($optionalSpec->getPrice());
@@ -285,4 +287,3 @@ class Automobile {
     }
 
 }
-
