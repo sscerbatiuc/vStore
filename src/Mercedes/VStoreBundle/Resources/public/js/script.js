@@ -26,7 +26,7 @@ var selectClass = function (name) {
 }
 
 /**
- * 
+ * Adds the specified option to the vehicle asynchronously
  * @param {type} specSlug
  * @returns {undefined}
  */
