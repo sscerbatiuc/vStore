@@ -8,9 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Mercedes\VStoreBundle\Model\Specification\SpecStorage;
 
-/**
- * THE CONTROLLER RESPONSIBLE FOR ALL THE ROUTES OF THE APPLICATION
- */
 class DefaultController extends Controller {
 
     /**
