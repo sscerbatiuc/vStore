@@ -1,17 +1,26 @@
 {% extends 'MercedesVStoreBundle::base.html.twig' %}
 
+{#-- STYLESHEETS #}
 {%block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/homepage.css') }}"
-    {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/homepage.css') }}"/>
+{% endblock %}
+{#-- /STYLESHEETS #}
 
+{#-- BODY --#}
     {% block body %}
         {{parent()}}
-
     {% endblock %}
+{#-- /BODY --#}
+
+{#-- CONTENT --#}
     {% block content %}
         {{ parent() }}
-        <p id="welcomeMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus placerat mauris eu condimentum. Nam vitae quam sit amet tortor feugiat aliquet in nec elit. Pellentesque malesuada nisl eget laoreet auctor. Donec vitae dolor vitae nibh lacinia porttitor sit amet ac lorem. Fusce et elementum leo, vel lobortis elit. Integer viverra massa ante, id vestibulum justo malesuada at. Morbi molestie tempus augue non hendrerit. Aliquam at auctor nisl. Cras viverra justo eu ultricies malesuada. Nullam in metus non nulla dignissim maximus. Nullam neque arcu, condimentum sed consectetur in, ullamcorper sit amet diam. Nullam bibendum ipsum eget sem accumsan, vel luctus magna maximus.</p>
+        <p id="welcomeMessage">We are one of the world’s most successful automotive companies. 
+            <br>The comfort, security and beauty is at its finest like never before. 
+            <br>We believe in a concept. No compromises. No excuses. We are concerned about every single detail. 
+            <br>Every piece, every technology involved, every curve, are a masterpiece of both design and technology                process. We are <strong>Mercedes-Benz</strong></p>
 
     <a id="templateButton" class="btn btn-default" href="/cars">See Models</a>
 {% endblock %}
+{#-- /CONTENT --#}

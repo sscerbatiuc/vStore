@@ -1,19 +1,28 @@
+{# THE PAGE WICH LETS US CHOOSE FROM ONE OF THE 5 CLASSES OF VEHICLES #}
 {% extends 'MercedesVStoreBundle::base.html.twig' %}
 
+{#-- TITLE --#}
 {% block title %} {{ parent() }} - Cars {% endblock %}
+{#-- /TITLE --#}
+
+{#-- STYLESHEETS --#}
 {% block stylesheets %}
-    {{ parent() }}
+    {{ parent() }} {# MAKE SURE THE CSS FROM THE BASE PAGE ARE LINKED AS WELL #}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/cars.css') }}"/>
 {% endblock %}
+{#-- /STYLESHEETS --#}
 
+{#-- BODY--#}
 {% block body %}
     {{ parent() }}
 {% endblock %}
+{#-- /BODY--#}
 
+{#-- CONTENT --#} 
 {% block content %}  
     
     <br/>
-    <div class="headerInformation"><h1>Select a class:</h1></div>
+    <div class="contentHeader"><h1>Select a class:</h1></div>
 
     <div class="classSelector" id="aClass" onclick="selectClass('a');">
         <h1 class="className">A-Class</h1>			
@@ -36,3 +45,4 @@
     </div>
 
 {% endblock %}
+{#-- /CONTENT --#}

@@ -20,7 +20,7 @@ html, body{
 }
 
 body{
-    background: url("../img/body_background.jpg") no-repeat;
+    background: url("../img/backgroundBody.jpg") no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
@@ -50,7 +50,7 @@ body{
 }
 
 .logo #logo_img{
-    background: url("../img/logo_main.png") no-repeat;
+    background: url("../img/headerLogo.png") no-repeat;
     margin: 0 auto;
     height: 150px;
     width: 290px;

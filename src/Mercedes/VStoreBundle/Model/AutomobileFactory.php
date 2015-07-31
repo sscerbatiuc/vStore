@@ -5,6 +5,9 @@ namespace Mercedes\VStoreBundle\Model;
 use Mercedes\VStoreBundle\Model\Vehicle\Automobile;
 use Mercedes\VStoreBundle\Model\Helper\Helper;
 
+/**
+ * Creates a specific car, besed on the user input class (A,B,C,E,S)
+ */
 class AutomobileFactory {
 
     private $vehicleStore;
@@ -65,14 +68,6 @@ class AutomobileFactory {
                     return NULL;
                 }
         }
-//        if (class_exists("Mercedes/VStoreBundle/Model/" . $vehicle)) {
-//            $newVehicle = new $vehicle();
-//            return $newVehicle;
-//        } else {
-//
-//            Helper::displayErrorMessage("The vehicle (" . $vehicle . ") couldn't be created.");
-//            return NULL;
-//        }
     }
 
 }

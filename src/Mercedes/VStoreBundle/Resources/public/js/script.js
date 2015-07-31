@@ -25,14 +25,6 @@ var selectClass = function (name) {
     window.location = "car/" + name;
 }
 
-/**
- * Adds the specified option to the vehicle asynchronously
- * @param {type} specSlug
- * @returns {undefined}
- */
-var addSpecification = function(specSlug){
-//    jQuery.ajax("/addSpec/"+specSlug);
-
 /** Retrieves asynchronously the price of the vehicle
  * @returns {Number}
  */
@@ -140,8 +132,12 @@ var manageVehicleSpecs = function (specSlug) {
     return 0;
 }
 
-
-var addVipDiscount = function(){
+/**
+ * Adds the vip discount option to the vehicle in the session
+ * @returns NULL
+ */
+var addVipDiscount = function () {
+    console.log("Adding VIP Discount...");
     $.ajax({
         type: 'GET',
         url: "/isVip/true",
@@ -157,13 +153,17 @@ var addVipDiscount = function(){
     });
 }
 
-
-var removeVipDiscount = function(){
+/**
+ * Removes the Vip discount option from the vehicle in the session
+ * @returns NULL
+ */
+var removeVipDiscount = function () {
+    console.log("Removing VIP Discount...");
     $.ajax({
         type: 'GET',
         url: "/isVip/false",
         success: function () {
-            console.log("VIP Discount successfully added");
+            console.log("VIP Discount successfully removed");
             displayPrice();
             return 1;
         },
@@ -179,15 +179,19 @@ var removeVipDiscount = function(){
  * the vehicle stored in the session
  * @returns {Number}
  */
-var manageDiscount = function(){
+var manageDiscount = function () {
+    console.log("Manage VIP Discount...");
     var checkbox = $('#vipDiscount');
-    if (checkbox.is(':checked')){
-         
-         addVipDiscount();
-         return 1; /*added*/
-         
-    } else {
-        
+    if (checkbox.is(':checked')) {
+
+        console.log("Trying to add VIP Discount...");
+        addVipDiscount();
+        return 1; /*added*/
+
+    }
+    else {
+
+        console.log("Trying to remove VIP Discount...");
         removeVipDiscount();
         return -1; /*removed*/
     }
@@ -201,7 +205,4 @@ var manageDiscount = function(){
 var reloadPage = function () {
     location.reload();
     return 1;
-}
-
-
 }

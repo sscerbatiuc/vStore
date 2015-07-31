@@ -13,6 +13,7 @@ abstract class Automobile {
     private $defaultSpecs;
     private $optionalSpecs;
     private $discountOptions;
+    private $vehicleDescription;
 
     public function __construct($class, $price) {
         $this->vehiclePrice = $price;
@@ -47,6 +48,14 @@ abstract class Automobile {
         return $this->optionalSpecs;
     }
 
+    function getDiscountOptions() {
+        return $this->discountOptions;
+    }
+
+    function getVehicleDescription() {
+        return $this->vehicleDescription;
+    }
+
     // SETTERS
     public function setVehicleClass($vehicleClass) {
         $this->vehicleClass = $vehicleClass;
@@ -54,6 +63,10 @@ abstract class Automobile {
 
     public function setVehiclePrice($vehiclePrice) {
         $this->vehiclePrice = $vehiclePrice;
+    }
+
+    function setVehicleDescription($vehicleDescription) {
+        $this->vehicleDescription = $vehicleDescription;
     }
 
     /**
@@ -218,14 +231,18 @@ abstract class Automobile {
 //            Helper::displayErrorMessage("The discount option is already assigned to the vehicle");
         }
     }
-    
-    public function removeDiscountOption($discountOption){
+
+    public function removeDiscountOption($discountOption) {
         $optionClass = get_class($discountOption);
         $isOptionAdded = array_key_exists($optionClass, $this->discountOptions);
-        if (!$isOptionAdded) {
+        if ($isOptionAdded) {
             unset($this->discountOptions[$optionClass]);
         }
-        
+        if ($isOptionAdded) {
+            for ($i = 1; $i < 100; $i++) {
+                $j = $i;
+            }
+        }
     }
 
     /**
@@ -243,7 +260,7 @@ abstract class Automobile {
      * Ranges the applicable discount options, depending on the order of each option
      */
     public function rangeDiscountOptions() {
-        usort($this->discountOptions, function ($option1, $option2) {
+        uksort($this->discountOptions, function ($option1, $option2) {
             return strcmp($option1->getOrder(), $option2->getOrder());
         });
     }

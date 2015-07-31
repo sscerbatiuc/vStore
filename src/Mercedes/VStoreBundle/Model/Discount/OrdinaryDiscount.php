@@ -4,6 +4,11 @@ namespace Mercedes\VStoreBundle\Model\Discount;
 
 use Mercedes\VStoreBundle\Model\Helper\Time;
 
+/**
+ * LETS US CREATE DISCOUNT OPTIONS WITH:
+ * > percent discount value
+ * > start & end date
+ */
 class OrdinaryDiscount extends Discounts {
 
     private $startDate;
@@ -21,7 +26,6 @@ class OrdinaryDiscount extends Discounts {
     }
     
     //GETTERS
-    
     function getStartDate() {
         return $this->startDate;
     }
@@ -31,7 +35,6 @@ class OrdinaryDiscount extends Discounts {
     }
     
     //SETTERS
-    
     public function setStartDate($start) {
         $this->startDate = $start;
     }

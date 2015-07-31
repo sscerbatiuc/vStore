@@ -1,12 +1,12 @@
 {% extends 'MercedesVStoreBundle::base.html.twig' %}
 {% set vehicle = app.session.get('automobileSession') %}
-{% set vehicleOptionalSpecs = vehicle.getOptionalSpecs %}
 
 {# -- TITLE -- #}
 
 {% block title %}{{ parent() }} - {{ vehicle.getVehicleClass }} {% endblock %}
 
 {# -- /TITLE -- #}
+{# -- STYLESHEETS -- #}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -16,22 +16,25 @@
           href="{{ asset('bundles/mercedesvstore/css/homepage.css') }}"/>
 {% endblock %}
 
+{# /-- STYLESHEETS -- #}
+
+
+{# -- PAGE CONTENT -- #}
 {% block body %}
     {{ parent() }}
 {% endblock %}
-
-{# -- PAGE CONTENT -- #}
 
 {% block content %}
 {{ parent() }}
 
     {# -- #CLASSPICTURE -- #}
-
+    
     <div id="classPicture" 
-         style="background-image: url({{ asset('bundles/mercedesvstore/img/full-size/Cars/'~vehicle.getVehicleClass~'.jpg') }}); 
+         style="background-image: url({{ asset('bundles/mercedesvstore/img/full-size/Cars/'
+                                                            ~vehicle.getVehicleClass~'.jpg') }}); 
          ">
         <div class="row">
-            
+
             <div class="col-lg-6">
                 <h1 id="classTitle">The new {{ vehicle.getVehicleClass }}</h1>
                 <p id="classPrice">Starting at: {{ vehicle.getVehiclePrice }}&#8364</p>
@@ -39,6 +42,7 @@
                    id="templateButton" class="btn btn-default 
                    customizeButton" href="#">Customize</a>
             </div>
+                
             {# ENSURE THE DIV IS DIVIDED IN 2 COLUMNS #}
             <div class="col-lg-6">
                 
@@ -47,12 +51,19 @@
     </div>
 
     {# --/ #CLASSPICTURE -- #}
-
+    
+    {# -- CLASS DESCRIPTION -- #}
+    
     <div class="row">
-        <p><strong>Description</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus felis sapien, volutpat in tortor ac, rhoncus ornare sapien. Nunc semper, sapien sit amet venenatis imperdiet, nibh libero pretium dui, non lobortis sem nibh a nisi. Morbi eu ultrices diam. Donec nisl quam, pretium id egestas in, congue ac nulla. Donec tempor ligula nec tortor eleifend, eu consectetur massa faucibus. Nulla luctus faucibus semper. Aliquam erat volutpat. Donec congue nunc sed enim suscipit pulvinar. Morbi nec egestas ipsum, ut pellentesque enim.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et ex turpis. Curabitur facilisis ligula ut nisl volutpat blandit. Cras malesuada efficitur nibh eget accumsan. Praesent sed nisi felis. Donec auctor hendrerit turpis non convallis. Aenean eleifend tincidunt ligula, vel rhoncus risus vulputate faucibus. Maecenas libero enim, elementum a risus ut, mattis placerat velit. Donec id porttitor nisi. Sed eros mauris, euismod quis sodales id, facilisis ac sapien. Donec eget suscipit dui. Mauris porttitor ex sit amet luctus vulputate. Etiam a nulla molestie, blandit ligula scelerisque, aliquam augue. Suspendisse potenti. Curabitur in consectetur sem, nec ullamcorper massa.</p>
     </div>
-
+    
+    {# /-- CLASS DESCRIPTION -- #}
+    
     <div class="row contentLeft">
+
+        {# -- CLASS SPECIFICATIONS #}
+        
         <div class="col-lg-6">
             <h3 id="defaultSpecHeader">Default Specifications</h3>
             <ul>
@@ -62,34 +73,32 @@
                         {% endif %} </li>
                     {% endfor %}
             </ul>
-            <h3>Price</h3>
-            <h4>{{vehicle.getVehiclePrice}}&#8364</h4>
-
+            <br/>
         </div>
+        
+        {# /-- CLASS SPECIFICATIONS #}
+
+          
+        {# -- CLASS CUSTOMIZER -- #}
+        
         <div class="col-lg-6">
             <h3 id="defaultSpecHeader">Give this car a touch of your personality</h3>
             <a data-toggle="modal" data-target="#myModal" id="templateButton" class="btn btn-default customizeSpecButton">Customize</a>
 
-            {% if vehicleOptionalSpecs is empty %}
+            {% if vehicle.getOptionalSpecs is empty %}
                 <p class="adnotation">You haven't added any options yet</p>
             {% else %}
                 <p class="adnotation" 
                    style="visibility: hidden">You haven't added any options yet</p>
             {% endif %}
-
-            <a data-toggle="modal" data-target="#modalPrice" 
-               id="templateButton" class="btn btn-default customizeSpecButton" 
-               onclick="">Information</a>
             
+        {# /-- CLASS CUSTOMIZER -- #}
+
         </div>
 
-        <!-- MODAL WINDOW - DISPLAYS THE AVAILABLE  OPTIONAL SPECIFICATIONS -->
+        {#-- MODAL WINDOW - DISPLAYS THE AVAILABLE  OPTIONAL SPECIFICATIONS #}
         {% include 'MercedesVStoreBundle:Modal:addSpecification.html.twig' %}
-        <!-- /.MODAL -->
-
-        <!-- MODAL THAT DISPLAYS THE CALCULATED PRICE -->
-        {% include 'MercedesVStoreBundle:Modal:calculatePrice.html.twig' %}
-        <!-- /.MODAL -->
+        {#-- /.MODAL #}
 
     </div>
 {% endblock %}

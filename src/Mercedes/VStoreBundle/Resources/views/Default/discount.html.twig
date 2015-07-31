@@ -1,10 +1,17 @@
 {% extends 'MercedesVStoreBundle::base.html.twig' %}
 
+{#-- TITLE --#}
 {% block title %}{{ parent() }} - Discount {% endblock %}
+{#-- /TITLE --#}
+
+{#-- BODY --#}
 {% block body %}
     {{ parent() }}
 {% endblock %}
+{#-- /BODY --#}
 
+
+{#-- CONTENT --#}
 {% block content %}
     {{ parent() }}
     <h1> We care about our customers </h1>
@@ -13,14 +20,21 @@
         <br/>
         <ul>
             {% for discount in options %}
-                <li>{{discount.getDescription}}:<br>
-                    {% if discount.getDiscountType == 0 %}
-                        {{ discount.getDiscountValue * 100 }}% <br><strong>Period:</strong> {{ discount.getStartDate }} - {{ discount.getEndDate }}
-                    {% else %}
-                        {{ discount.getDiscountValue }}&#8364  
-                    {% endif %}
+            <li>{{discount.getDescription}}:<br>
+                {% if discount.getDiscountType == 0 %}
+                    
+                    {{ discount.getDiscountValue * 100 }}% <br>
+                        <strong>Period:</strong> {{ discount.getStartDate }} - {{ discount.getEndDate }}
+                    
+                {% else %}
+                        
+                    {{ discount.getDiscountValue }}&#8364  
+                    
+                {% endif %}
                 </li>
             {% endfor %}
         </ul>
     </div>
 {% endblock %}
+{#-- /CONTENT --#}
+

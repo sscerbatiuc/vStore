@@ -9,8 +9,7 @@ abstract class Discounts implements OrderingInterface {
     const fixedDiscount = 1;
     const percentDiscount= 0;
     
-    private $order;
-    
+    private $order; //Defines the order, in which the discount option is applied
     private $description;
     
     /**
@@ -42,7 +41,6 @@ abstract class Discounts implements OrderingInterface {
     abstract public function __toString();
 
     //GETTERS
-    
     function getDiscountValue() {
         return $this->discountValue;
     }

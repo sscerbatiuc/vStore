@@ -2,7 +2,10 @@
 
 namespace Mercedes\VStoreBundle\Model\Discount;
 
-
+/**
+ * VIP Discount is a discount option with fixed discount value
+ * and is applied primarily to other discount options
+ */
 class VipDiscount extends Discounts {
 
     const description = "VIP Discount";
@@ -29,7 +32,7 @@ class VipDiscount extends Discounts {
         $info .= (($this->getDiscountType() == 1) ? "&#8364" : "%");
         $info .= " <strong>Order of application:</strong> " . $this->getOrder();
         $info .= " <strong>Is Active?:</strong> " . ($this->getIsActive() ? "Yes" : "No");
-        return $info . "<br>";
+        return "<p>".$info ."</p>";
     }
 
     /**
