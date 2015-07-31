@@ -3,12 +3,13 @@
     Author     : PENTALOG\sscerbatiuc
 */
 
+/*MERCEDES-BENZ OFFICIAL FONT*/
 @font-face{
     font-family: "Corporate A BQ";
     src:url('../fonts/corporate-a-bq.ttf');
 }
 
-/*********************************************************************************/
+/***************************** PAGE SETTING **************************************/
 
 html, body{
     margin: 0;
@@ -33,7 +34,9 @@ body{
     width: 100%;	
 }
 
-/***********************************************************************************/
+/****************************** HEADER *********************************************/
+
+/* LOGO */
 
 .logo{
     display: table-row;
@@ -52,6 +55,8 @@ body{
     height: 150px;
     width: 290px;
 }
+
+/* NAVIGATION MENU PROPERTIES */
 
 #navigationContainer{
     /*margin-right: 10%;
@@ -89,7 +94,7 @@ body{
 
 }
 
-/***********************************************************************************/
+/***************************** CONTENT *********************************************/
 
 .contentContainer{
     display: table-row;
@@ -109,6 +114,7 @@ body{
     background: rgba(241,230,215,0.85);
 }
 
+/* CONTENT ALIGNED TO THE LEFT*/
 .contentLeft{
     text-align: left;
 }
@@ -117,7 +123,7 @@ body{
     font-size: 120%;
 }
 
-/************************************************************************************/
+/***************************** FOOTER ***********************************************/
 
 .footer {
     display: table-row;
@@ -132,7 +138,7 @@ body{
     background: rgba(241,230,215,0.95);
 }
 
-/*********** Makes the menu bar stick to the top when scrolling  ********************/
+/*********** MAKES THE MENU BAR STICK TO THE TOP WHEN SCROLLING  ********************/
 .stick{
     position: fixed;
     top: 0px;
@@ -140,5 +146,8 @@ body{
     right: 0px;
 }
 
-/***********************************************************************************/
-
+/****************************** ADNOTATIONS *****************************************/
+.adnotation{
+    display: inline-block;
+    color: #9D9E95;
+}

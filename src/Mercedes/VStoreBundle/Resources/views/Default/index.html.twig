@@ -3,14 +3,15 @@
 {%block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mercedesvstore/css/homepage.css') }}"
-{% endblock %}
+    {% endblock %}
 
-{% block body %}
-    {{parent()}}
+    {% block body %}
+        {{parent()}}
 
-{% endblock %}
-{% block content %}
-    {{ parent() }}
-    <p id="welcomeMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus placerat mauris eu condimentum. Nam vitae quam sit amet tortor feugiat aliquet in nec elit. Pellentesque malesuada nisl eget laoreet auctor. Donec vitae dolor vitae nibh lacinia porttitor sit amet ac lorem. Fusce et elementum leo, vel lobortis elit. Integer viverra massa ante, id vestibulum justo malesuada at. Morbi molestie tempus augue non hendrerit. Aliquam at auctor nisl. Cras viverra justo eu ultricies malesuada. Nullam in metus non nulla dignissim maximus. Nullam neque arcu, condimentum sed consectetur in, ullamcorper sit amet diam. Nullam bibendum ipsum eget sem accumsan, vel luctus magna maximus.</p>
-    <a id="templateButton" class="btn btn-default" href="/cars">Enter</a>
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+        <p id="welcomeMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus placerat mauris eu condimentum. Nam vitae quam sit amet tortor feugiat aliquet in nec elit. Pellentesque malesuada nisl eget laoreet auctor. Donec vitae dolor vitae nibh lacinia porttitor sit amet ac lorem. Fusce et elementum leo, vel lobortis elit. Integer viverra massa ante, id vestibulum justo malesuada at. Morbi molestie tempus augue non hendrerit. Aliquam at auctor nisl. Cras viverra justo eu ultricies malesuada. Nullam in metus non nulla dignissim maximus. Nullam neque arcu, condimentum sed consectetur in, ullamcorper sit amet diam. Nullam bibendum ipsum eget sem accumsan, vel luctus magna maximus.</p>
+
+    <a id="templateButton" class="btn btn-default" href="/cars">See Models</a>
 {% endblock %}
